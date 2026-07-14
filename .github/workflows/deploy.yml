@@ -37,7 +37,7 @@ jobs:
       with:
         context: ./backend
         push: true
-        tags: ${{ secrets.ACR_LOGIN_SERVER }}/backend:v4
+        tags: ${{ secrets.ACR_LOGIN_SERVER }}/backend:${{ github.sha }}
         platforms: linux/arm64
 
     - name: Build and push frontend
@@ -45,7 +45,7 @@ jobs:
       with:
         context: ./frontend
         push: true
-        tags: ${{ secrets.ACR_LOGIN_SERVER }}/frontend:v4
+        tags: ${{ secrets.ACR_LOGIN_SERVER }}/frontend:${{ github.sha }}
         platforms: linux/arm64
         build-args: |
           REACT_APP_API_URL=http://48.192.178.39:8000
@@ -56,9 +56,9 @@ jobs:
         resource-group: rg-railway-agent
         cluster-name: railway-agent-aks
 
-    - name: Update deployments to use v4 images
+    - name: Deploy to AKS
       run: |
-        kubectl set image deployment/backend backend=${{ secrets.ACR_LOGIN_SERVER }}/backend:v4
-        kubectl set image deployment/frontend frontend=${{ secrets.ACR_LOGIN_SERVER }}/frontend:v4
+        kubectl set image deployment/backend backend=${{ secrets.ACR_LOGIN_SERVER }}/backend:${{ github.sha }}
+        kubectl set image deployment/frontend frontend=${{ secrets.ACR_LOGIN_SERVER }}/frontend:${{ github.sha }}
         kubectl rollout status deployment/backend
         kubectl rollout status deployment/frontend
