@@ -4,7 +4,7 @@ import ReactMarkdown from 'react-markdown';
 import "./App.css";
 
 
-const API_URL = "http://48.192.178.39:8000";
+const API_URL = process.env.REACT_APP_API_URL || "http://48.192.178.39:8000";
 
 const SUGGESTIONS = [
   "Which segments have CRITICAL status?",
