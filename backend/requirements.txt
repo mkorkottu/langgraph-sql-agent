@@ -1,0 +1,10 @@
+langgraph
+langchain
+langchain-anthropic
+sqlalchemy
+fastapi
+uvicorn
+streamlit
+pandas
+python-dotenv
+requests
