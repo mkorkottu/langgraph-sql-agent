@@ -9,7 +9,7 @@ app = FastAPI(title="Railway SQL Agent API")
 # Allow React frontend to talk to FastAPI
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=["http://localhost:3000", "http://20.118.126.174", "*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
